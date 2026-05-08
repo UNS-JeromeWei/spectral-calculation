@@ -1,8 +1,8 @@
 # Spectral Calculation - 光谱重建算法项目
 
-**版本**: v1.0  
+**版本**: v1.2  
 **作者**: UNS-JeromeWei  
-**日期**: 2026-05-06
+**日期**: 2026-05-08
 
 ---
 
@@ -231,6 +231,22 @@ spectral           # 光谱数据处理
 ---
 
 ## 版本历史
+
+### v1.2 (2026-05-08)
+- **新增连续光谱重建功能**
+  - 新增 `reconstruct_continuum_spectra()` 函数，支持从CSV文件加载连续光谱数据进行重建
+  - 新增 `load_continuum_spectra_from_csv()` 函数，加载A/B/C三组反射率数据
+  - 新增 `save_continuum_spectrum_comparison()` 函数，保存单条光谱对比图
+  - 新增 `save_continuum_summary_plot()` 函数，保存3x5子图汇总
+- **波长范围处理优化**
+  - 自动计算CSV数据与响应矩阵波长范围的交集，避免外推导致的负值问题
+  - 使用 `np.clip()` 确保插值后光谱值非负
+- **输出结构**
+  - 结果保存至 `continuum/A组/`、`continuum/B组/`、`continuum/C组/` 子目录
+  - 每组包含14条光谱的独立对比图和汇总统计图
+- **重建质量指标**
+  - MSE（均方误差）和相关系数作为重建质量评估指标
+  - 典型重建精度：MSE < 0.00001，相关系数 > 0.999
 
 ### v1.1 (2026-05-08)
 - 新增 `rebuild_curves_cwl_fwhm_loop_400_980.py` 文件
